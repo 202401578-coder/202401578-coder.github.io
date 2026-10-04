@@ -2,9 +2,9 @@
 //
 // 문서 작성 규칙
 //   - 글은 "MM/DD- 메모" 또는 "MM/DD(요일)- 메모" 형식의 날짜 줄로 시작한다.
-//   - 날짜 줄에 [AI소식] 또는 [연구일지]를 넣으면 그 분류를 그대로 쓴다.
-//     넣지 않으면 본문 키워드로 자동 분류한다.
-//   - 그 밖의 대괄호는 프로젝트 이름이 된다: "10/04- [연구일지][EarlyFailure] 메모"
+//   - 분류는 홈페이지 관심 분야 세 가지뿐이다. 날짜 줄에 [Reasoning] / [LLM] / [VLA]를 넣으면
+//     그 분류를 쓰고, 넣지 않으면 본문 키워드로 자동 분류한다.
+//   - 그 밖의 대괄호는 태그가 된다: "10/04- [Reasoning][EarlyFailure] 메모"
 //   - 제목은 글 안의 첫 제목(Heading)으로 정하고, 없으면 날짜 줄의 메모를 쓴다.
 //   - 본문 그림은 assets/blog/에 내려받아 함께 올린다(사이트 보안 정책상 외부 그림은 표시되지 않음).
 //
@@ -223,16 +223,27 @@ function normalizeHeadings(post) {
 posts.forEach(normalizeHeadings);
 
 /* ---------- 4. 분류·제목·요약 ---------- */
-const AI_NEWS = ["소식", "뉴스", "출시", "공개했", "발표했", "릴리즈", "release", "launch", "announce", "업데이트", "기사", "신제품", "오픈소스", "벤치마크 1위"];
-const RESEARCH = ["연구", "실험", "계획서", "가설", "baseline", "ablation", "데이터셋", "결과", "분석", "논문", "구현", "진행상황", "회의"];
+// 분류는 홈페이지 Research Interests의 세 분야로만 한다.
+// 날짜 줄의 [Reasoning] / [LLM] / [VLA]가 우선이고, 없으면 본문 키워드가 가장 많은 분야로 정한다.
+const CATEGORIES = [
+  { id: "reasoning", tag: /^(reasoning|reliability|추론|신뢰)/i,
+    words: ["reliab", "신뢰", "verification", "검증", "failure", "실패", "uncertainty", "불확실", "calibration", "reasoning", "추론", "hallucination", "환각", "early warning", "robust"] },
+  { id: "llm-eval", tag: /^(llm|eval|평가)/i,
+    words: ["llm", "evaluation", "평가", "benchmark", "벤치마크", "judge", "metric", "leaderboard", "리더보드", "에이전트", "agent"] },
+  { id: "vla", tag: /^(vla|vision|로봇|행동)/i,
+    words: ["vla", "vision-language-action", "robot", "로봇", "embodied", "action", "행동", "vlm", "vision-language", "grounding", "manipulation", "자율주행", "차선"] },
+];
 const score = (text, words) => words.reduce((n, w) => n + (text.toLowerCase().split(w.toLowerCase()).length - 1), 0);
 
 function classify(post) {
-  const tagged = post.memo.match(/\[(AI\s?소식|연구\s?일지)\]/);
-  if (tagged) return tagged[1].replace(/\s/g, "").startsWith("AI") ? "ai-news" : "research-log";
+  for (const b of post.brackets) {
+    const hit = CATEGORIES.find((c) => c.tag.test(b));
+    if (hit) return hit.id;
+  }
   const all = `${post.memo} ${post.text.join(" ")}`;
-  return score(all, AI_NEWS) > score(all, RESEARCH) ? "ai-news" : "research-log";
+  return CATEGORIES.map((c) => [c.id, score(all, c.words)]).sort((a, b) => b[1] - a[1])[0][0];
 }
+const isCategoryTag = (b) => CATEGORIES.some((c) => c.tag.test(b)) || /^(AI\s?소식|연구\s?일지)$/.test(b);
 
 // 본문에 자주 나오는 영문 고유명사·약어를 태그로 쓴다 (예: SAM2, LLM)
 function tagsOf(post) {
@@ -254,9 +265,9 @@ const out = posts
     const dateStr = `${p.year}-${pad(p.month)}-${pad(p.day)}`;
     const n = (seen.get(dateStr) || 0) + 1;
     seen.set(dateStr, n);
-    // 날짜 줄의 [AI소식]/[연구일지] 외 대괄호는 프로젝트 이름으로 쓴다: 10/04- [연구일지][EarlyFailure] 메모
-    const brackets = [...p.memo.matchAll(/\[([^\]]+)\]/g)].map((m) => m[1].trim());
-    const project = brackets.find((b) => !/^(AI\s?소식|연구\s?일지)$/.test(b)) || "";
+    // 날짜 줄의 대괄호: 분야([Reasoning]/[LLM]/[VLA])가 아니면 태그로 붙인다 (예: [EarlyFailure])
+    p.brackets = [...p.memo.matchAll(/\[([^\]]+)\]/g)].map((m) => m[1].trim());
+    const extraTags = p.brackets.filter((b) => !isCategoryTag(b));
     const memo = p.memo.replace(/\[[^\]]*\]/g, "").replace(/^[\s\-–—:]+/, "").trim();
     // 첫 번호 장 앞의 제목들(titleHeadings)에서 글 제목을 고른다.
     // "연구계획서"처럼 문서 종류만 적힌 첫 제목이면 바로 다음 제목(실제 주제)을 제목으로 쓴다
@@ -274,13 +285,11 @@ const out = posts
       id: `${dateStr}-${n}`,
       date: dateStr,
       category: classify(p),
-      project,
       title,
       kicker,
       memo: memo && memo !== title ? memo : "",
       summary: plain.length > 160 ? `${plain.slice(0, 160).trim()}…` : plain,
-      tags: tagsOf(p).filter((t) => t !== project),
-      minutes: Math.max(1, Math.round(p.text.join(" ").length / 500)),
+      tags: [...extraTags, ...tagsOf(p).filter((t) => !extraTags.includes(t))].slice(0, 5),
       html,
     };
   })
@@ -336,5 +345,5 @@ if (previous === file) {
   await mkdir(new URL("../data/", import.meta.url), { recursive: true });
   await writeFile(OUT, file);
   console.log(`글 ${out.length}개를 data/posts.js에 저장했습니다.`);
-  for (const p of out) console.log(`- ${p.date} [${p.category}]${p.project ? `[${p.project}]` : ""} ${p.title}`);
+  for (const p of out) console.log(`- ${p.date} [${p.category}] ${p.title}`);
 }

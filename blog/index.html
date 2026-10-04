@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>블로그 | 이원경</title>
-  <meta name="description" content="이원경의 AI 소식과 연구일지를 모은 블로그입니다.">
+  <meta name="description" content="이원경의 연구 기록 — Reasoning Verification & Reliability, LLM Evaluation, VLA.">
   <meta name="color-scheme" content="dark light">
   <!-- 보안: 이 사이트와 글꼴 CDN 외의 스크립트·자원은 불러오지 않는다 (글 본문에 스크립트가 섞여도 실행되지 않음) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src https://cdn.jsdelivr.net; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
@@ -56,15 +56,16 @@
     <section id="view-list" class="wrap blog-list-view" aria-labelledby="blog-title">
       <header class="blog-hero">
         <p class="kicker">Blog</p>
-        <h1 id="blog-title">AI 소식과 연구일지</h1>
-        <p class="sec-desc">관심 있게 본 AI 소식과, 연구를 진행하며 남긴 기록을 모았습니다.</p>
+        <h1 id="blog-title">연구 기록</h1>
+        <p class="sec-desc">세 가지 관심 분야를 중심으로, 연구를 진행하며 남긴 기록을 모았습니다.</p>
       </header>
 
       <div class="blog-toolbar">
         <div class="tabs blog-tabs" role="group" aria-label="글 분류">
           <a class="tab" href="#/" data-cat="all">전체 <span class="count" data-count-for="all"></span></a>
-          <a class="tab" href="#/ai-news" data-cat="ai-news">AI 소식 <span class="count" data-count-for="ai-news"></span></a>
-          <a class="tab" href="#/research-log" data-cat="research-log">연구일지 <span class="count" data-count-for="research-log"></span></a>
+          <a class="tab" href="#/reasoning" data-cat="reasoning">Reasoning Verification &amp; Reliability <span class="count" data-count-for="reasoning"></span></a>
+          <a class="tab" href="#/llm-eval" data-cat="llm-eval">LLM Evaluation <span class="count" data-count-for="llm-eval"></span></a>
+          <a class="tab" href="#/vla" data-cat="vla">Vision-Language-Action (VLA) <span class="count" data-count-for="vla"></span></a>
         </div>
         <label class="search">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
@@ -72,7 +73,6 @@
           <input type="search" id="blog-search" placeholder="제목·내용·태그 검색" autocomplete="off">
         </label>
       </div>
-      <nav class="project-filter" id="project-filter" aria-label="프로젝트별 보기" hidden></nav>
 
       <p class="result-note" id="result-note" aria-live="polite"></p>
       <ol class="post-grid" id="post-grid"></ol>

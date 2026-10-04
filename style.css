@@ -451,8 +451,10 @@ code { font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; fon
 /* 페이지 이동(홈 ↔ 블로그)을 부드럽게 바꾼다 (지원 브라우저) */
 @view-transition { navigation: auto; }
 .nav-blog::after { content: " ↗"; font-size: .85em; opacity: .6; }
-.cat-ai-news { color: var(--c-dev); background: color-mix(in srgb, var(--c-dev) 15%, transparent); }
-.cat-research-log { color: var(--c-research); background: color-mix(in srgb, var(--c-research) 16%, transparent); }
+/* 블로그 분류 = 관심 분야 세 가지 */
+.cat-reasoning { color: var(--c-research); background: color-mix(in srgb, var(--c-research) 16%, transparent); }
+.cat-llm-eval { color: var(--c-dev); background: color-mix(in srgb, var(--c-dev) 15%, transparent); }
+.cat-vla { color: var(--c-industry); background: color-mix(in srgb, var(--c-industry) 15%, transparent); }
 .sec-head-row { max-width: none; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
 .sec-head-row > div { max-width: 760px; }
 .teaser-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }

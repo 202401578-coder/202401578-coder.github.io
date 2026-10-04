@@ -1,4 +1,4 @@
-// 블로그: 해시 주소(#/, #/ai-news, #/research-log, #/p/<프로젝트>, #/post/<id>)로 목록과 글 화면을 바꾼다.
+// 블로그: 해시 주소(#/, #/reasoning, #/llm-eval, #/vla, #/post/<id>)로 목록과 글 화면을 바꾼다.
 // 글 데이터(window.BLOG_POSTS)는 GitHub Actions가 Google Docs에서 만들어 ../data/posts.js에 넣는다.
 const root = document.documentElement;
 root.classList.remove("no-js");
@@ -8,13 +8,11 @@ const $ = (sel, el = document) => el.querySelector(sel);
 const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const CATEGORY = { "ai-news": "AI 소식", "research-log": "연구일지" };
+// 분류 = 홈페이지 Research Interests의 세 분야 (탭에는 전체 이름, 글 표시에는 짧은 이름)
+const CATEGORY = { reasoning: "Reasoning Verification & Reliability", "llm-eval": "LLM Evaluation", vla: "Vision-Language-Action (VLA)" };
+const SHORT = { reasoning: "Reasoning & Reliability", "llm-eval": "LLM Evaluation", vla: "VLA" };
 const posts = (window.BLOG_POSTS || []).slice();
-const state = { cat: "all", project: "", query: "" };
-
-// 프로젝트 목록: 날짜 줄에 [프로젝트]를 적은 글에서 모은다 (최근 글이 있는 프로젝트부터)
-const projects = [...new Set(posts.map((p) => p.project).filter(Boolean))];
-const projectLink = (name) => `#/p/${encodeURIComponent(name)}`;
+const state = { cat: "all", query: "" };
 
 const escapeHtml = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const formatDate = (d) => { const [y, m, day] = d.split("-"); return `${y}.${m}.${day}`; };
@@ -43,9 +41,6 @@ function route() {
     const post = posts.find((p) => p.id === decodeURIComponent(postMatch[1]));
     if (post) return showPost(post);
   }
-  const projectMatch = hash.match(/^p\/(.+)$/);
-  const project = projectMatch ? decodeURIComponent(projectMatch[1]) : "";
-  state.project = projects.includes(project) ? project : "";
   state.cat = CATEGORY[hash] ? hash : "all";
   showList();
 }
@@ -54,10 +49,9 @@ function route() {
 function showList() {
   $("#view-post").hidden = true;
   $("#view-list").hidden = false;
-  document.title = `${state.project || (state.cat === "all" ? "블로그" : CATEGORY[state.cat])} | 이원경`;
-  renderProjectFilter();
+  document.title = `${state.cat === "all" ? "블로그" : CATEGORY[state.cat]} | 이원경`;
   $$(".blog-tabs .tab").forEach((t) => {
-    const on = !state.project && t.dataset.cat === state.cat;
+    const on = t.dataset.cat === state.cat;
     t.classList.toggle("is-active", on);
     if (on) t.setAttribute("aria-current", "page"); else t.removeAttribute("aria-current");
   });
@@ -67,24 +61,21 @@ function showList() {
 function renderList() {
   const list = posts.filter((p) => {
     if (state.cat !== "all" && p.category !== state.cat) return false;
-    if (state.project && p.project !== state.project) return false;
     if (!state.query) return true;
-    return `${p.title} ${p.kicker} ${p.memo} ${p.project || ""} ${p.summary} ${p.tags.join(" ")}`.toLowerCase().includes(state.query);
+    return `${p.title} ${p.kicker} ${p.memo} ${p.summary} ${p.tags.join(" ")}`.toLowerCase().includes(state.query);
   });
   const grid = $("#post-grid");
   $("#result-note").textContent = state.query ? `검색 결과 ${list.length}개` : "";
   if (!list.length) {
-    grid.innerHTML = `<li class="empty">${state.query ? "검색 결과가 없습니다." : `아직 등록된 ${state.cat === "all" ? "글" : CATEGORY[state.cat]}이 없습니다.`}</li>`;
+    grid.innerHTML = `<li class="empty">${state.query ? "검색 결과가 없습니다." : state.cat === "all" ? "아직 등록된 글이 없습니다." : "아직 이 분야의 글이 없습니다."}</li>`;
     return;
   }
   grid.innerHTML = list.map((p, i) => `
     <li class="post-card spot" style="--i:${i}">
       <a href="#/post/${encodeURIComponent(p.id)}">
         <div class="pmeta">
-          <span class="tag cat-${p.category}">${CATEGORY[p.category]}</span>
-          ${p.project ? `<span class="tag proj">${escapeHtml(p.project)}</span>` : ""}
+          <span class="tag cat-${p.category}">${SHORT[p.category]}</span>
           <time datetime="${p.date}">${formatDate(p.date)}</time>
-          <span class="org">${p.minutes}분 읽기</span>
         </div>
         ${p.kicker ? `<p class="card-kicker">${escapeHtml(p.kicker)}</p>` : ""}
         <h2>${escapeHtml(p.title)}</h2>
@@ -93,18 +84,6 @@ function renderList() {
       </a>
     </li>`).join("");
   bindSpotlight(grid);
-}
-
-// 프로젝트 필터: [프로젝트]가 붙은 글이 하나라도 있을 때만 보인다
-function renderProjectFilter() {
-  const box = $("#project-filter");
-  box.hidden = !projects.length;
-  if (!projects.length) return;
-  const chip = (href, label, on, count) =>
-    `<a class="pf-chip${on ? " is-active" : ""}" href="${href}"${on ? ' aria-current="page"' : ""}>${escapeHtml(label)} <span class="count">${count}</span></a>`;
-  box.innerHTML = `<span class="pf-label">프로젝트</span>` +
-    chip("#/", "전체", !state.project, posts.length) +
-    projects.map((name) => chip(projectLink(name), name, state.project === name, posts.filter((p) => p.project === name).length)).join("");
 }
 
 /* ---------- 글 ---------- */
@@ -116,10 +95,8 @@ function showPost(post) {
   $("#post-kicker").textContent = post.kicker || CATEGORY[post.category];
   $("#post-title").textContent = post.title;
   $("#post-meta").innerHTML = `
-    <a class="tag cat-${post.category}" href="#/${post.category}">${CATEGORY[post.category]}</a>
-    ${post.project ? `<a class="tag proj" href="${projectLink(post.project)}">${escapeHtml(post.project)}</a>` : ""}
+    <a class="tag cat-${post.category}" href="#/${post.category}">${SHORT[post.category]}</a>
     <time datetime="${post.date}">${formatDate(post.date)}</time>
-    <span>${post.minutes}분 읽기</span>
     ${post.tags.map((t) => `<span class="chip">${escapeHtml(t)}</span>`).join("")}`;
   const memo = $("#post-memo");
   memo.textContent = post.memo ? `메모 · ${post.memo}` : "";

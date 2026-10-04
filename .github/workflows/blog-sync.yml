@@ -1,4 +1,4 @@
-# Google Docs에 쓴 연구일지·AI 소식을 블로그 글(data/posts.js)로 정리해 올린다.
+# Google Docs에 쓴 연구 기록을 블로그 글(data/posts.js)과 그림(assets/blog/)으로 정리해 올린다.
 # 문서 주소는 저장소 Settings → Secrets and variables → Actions의 BLOG_DOC_URL에만 둔다.
 name: Blog sync
 

@@ -22,15 +22,6 @@
 .search input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--text); font: inherit; font-size: 15px; outline: none; }
 .search input::placeholder { color: var(--faint); }
 
-/* 프로젝트 필터와 프로젝트 표시 */
-.project-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 14px; }
-.project-filter[hidden] { display: none; }
-.pf-label { margin-right: 4px; color: var(--faint); font-size: 12.5px; font-weight: 800; letter-spacing: .04em; }
-.pf-chip { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 13.5px; font-weight: 700; text-decoration: none; transition: color .2s, border-color .2s; }
-.pf-chip:hover { color: var(--text); border-color: var(--border-strong); }
-.pf-chip.is-active { color: var(--text); background: var(--surface-strong); border-color: var(--border-strong); }
-.tag.proj { color: var(--a2); background: color-mix(in srgb, var(--a2) 14%, transparent); }
-
 .result-note { min-height: 1.2em; margin-bottom: 8px; color: var(--muted); font-size: 14px; }
 
 .post-grid { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }

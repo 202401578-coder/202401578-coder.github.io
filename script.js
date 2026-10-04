@@ -26,7 +26,7 @@ function initBlogTeaser() {
   const list = $("#blog-teaser-list");
   if (!list) return;
   const posts = (window.BLOG_POSTS || []).slice(0, 3);
-  const CATEGORY = { "ai-news": "AI 소식", "research-log": "연구일지" };
+  const CATEGORY = { reasoning: "Reasoning & Reliability", "llm-eval": "LLM Evaluation", vla: "VLA" };
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   if (!posts.length) {
     list.innerHTML = '<li class="teaser-empty">곧 첫 글이 올라옵니다.</li>';
