@@ -1,105 +1,648 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>이원경 | 소개와 프로젝트</title>
+  <title>이원경 | AI Research Portfolio</title>
+  <meta name="description" content="한국외국어대학교 학부생 연구자 이원경의 연구·프로젝트·경력을 기간별로 정리한 포트폴리오입니다.">
+  <meta name="color-scheme" content="dark light">
+  <!-- 보안: 이 사이트와 글꼴 CDN 외의 스크립트·자원은 불러오지 않는다 -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src https://cdn.jsdelivr.net; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <script src="theme-init.js"></script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="style.css">
+  <script src="data/posts.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="site-name" href="#about">이원경</a>
-      <nav aria-label="주요 메뉴">
-        <a href="#about">소개</a>
-        <a href="#interests">Research Interests</a>
-        <a href="#education">학력</a>
-        <a href="#career">경력</a>
-        <a href="#activities">대외활동</a>
-      </nav>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <!-- 떠 있는 메뉴 -->
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="이원경, 맨 위로">
+      <span class="brand-mark" aria-hidden="true">WK</span>
+      <span class="brand-name">이원경</span>
+    </a>
+    <nav id="site-nav" class="pill-nav" aria-label="주요 메뉴">
+      <span class="pill-indicator" aria-hidden="true"></span>
+      <a href="#about">소개</a>
+      <a href="#interests">관심 분야</a>
+      <a href="#timeline">타임라인</a>
+      <a href="#projects">프로젝트</a>
+      <a href="#experience">경력·학력</a>
+      <a href="#awards">발표·수상</a>
+      <a href="blog/index.html" class="nav-blog">블로그</a>
+    </nav>
+    <div class="topbar-actions">
+      <a class="contact-link" href="mailto:202401578@hufs.ac.kr" aria-label="Contact: 202401578@hufs.ac.kr로 메일 보내기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>
+        <span class="contact-label">Contact</span>
+        <span class="contact-mail">202401578@hufs.ac.kr</span>
+      </a>
+      <button class="icon-btn theme-toggle" type="button" aria-label="라이트·다크 테마 전환">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="bars" aria-hidden="true"></span>
+        <span class="sr-only">메뉴 열기</span>
+      </button>
     </div>
   </header>
 
-  <main id="main" class="container">
-    <section id="about" class="intro" aria-labelledby="about-title">
-      <h1 id="about-title">안녕하세요.<br>이원경입니다.</h1>
-      <a class="button" href="#career">경력 보기 <span aria-hidden="true">→</span></a>
+  <main id="main">
+    <!-- HERO -->
+    <section id="about" class="hero" aria-labelledby="hero-title">
+      <span id="top"></span>
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="status-chip reveal"><span class="pulse" aria-hidden="true"></span>SenscoreAI Lab · 데이터센스에서 연구 중</p>
+          <h1 id="hero-title" class="reveal">
+            <span class="h1-line">현장의 문제를</span>
+            <span class="h1-line"><span class="grad">믿을 수 있는 AI</span>로</span>
+            <span class="h1-line">풀어 갑니다.</span>
+          </h1>
+          <p class="typing reveal">
+            <span class="typing-label">Research focus</span>
+            <span class="typing-text" aria-hidden="true" data-words="Reasoning Verification|LLM Evaluation|Vision-Language-Action">Reasoning Verification</span><span class="caret" aria-hidden="true"></span>
+            <span class="sr-only">Reasoning Verification, LLM Evaluation, Vision-Language-Action</span>
+          </p>
+          <p class="hero-lead reveal">
+            한국외국어대학교 독일어과에 재학 중인 <strong>이원경</strong>입니다.
+            AI 비전공자로 출발해 2026년 1월부터 SenscoreAI Lab에서 의료영상 분류와 이륜차 센서·주행 영상 분석을 연구했고,
+            6월부터는 데이터센스 연구원으로 자격증 기반 추론형(CoT) 학습데이터를 만들었습니다.
+            10월부터는 ETRI 과제 두 건에서 AI 에이전트의 안전성 평가와 자기설명 기반 신뢰 연구를 하고 있습니다.
+          </p>
+          <div class="hero-actions reveal">
+            <a class="btn btn-primary" href="#projects">프로젝트 보기 <span aria-hidden="true">→</span></a>
+            <a class="btn btn-glass" href="https://github.com/202401578-coder" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="gh"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+              GitHub <span class="sr-only">(새 창)</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="glass profile reveal" aria-label="요약 정보">
+          <div class="profile-top">
+            <p class="profile-name">이원경 <span>Wonkyung Lee</span></p>
+            <p class="profile-role">Undergraduate AI Researcher</p>
+          </div>
+          <dl class="profile-dl">
+            <div><dt>Research in</dt><dd>SenscoreAI Lab 학부생 인턴</dd></div>
+            <div><dt>Work in</dt><dd>데이터센스(주) 재직 중</dd></div>
+            <div><dt>Education</dt><dd>한국외국어대학교 독일어과</dd></div>
+            <div><dt>Data</dt><dd>의료영상 · IMU 센서 · 주행 영상 · 추론 텍스트</dd></div>
+          </dl>
+          <p class="profile-sub">Languages &amp; Certifications</p>
+          <ul class="certs" aria-label="사용 언어">
+            <li>한국어 <em>Native</em></li>
+            <li>English <em>Professional working</em></li>
+            <li>Deutsch <em>B2</em></li>
+          </ul>
+          <ul class="certs" aria-label="자격증">
+            <li>한국사능력검정시험 심화 2급</li>
+            <li>ADsP</li>
+          </ul>
+        </aside>
+      </div>
     </section>
 
-    <section id="interests" class="section" aria-labelledby="interests-title">
-      <h2 id="interests-title">Research Interests</h2>
-      <p class="section-description">Interested in understanding how AI systems reason, recognize uncertainty, and make reliable decisions in real-world environments.</p>
-      <ul class="interest-list">
-        <li>Reasoning Verification &amp; Reliability</li>
-        <li>LLM Evaluation</li>
-        <li>Vision-Language-Action (VLA)</li>
-      </ul>
+    <!-- 관심 분야 -->
+    <section id="interests" class="section section-first" aria-labelledby="interests-title">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <h2 id="interests-title">Research Interests</h2>
+          <p class="sec-desc">Interested in understanding how AI systems reason, recognize uncertainty, and make reliable decisions in real-world environments.</p>
+        </header>
+        <ul class="interest-grid">
+          <li class="card spot interest reveal">
+            <span class="i-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>
+            </span>
+            <h3>Reasoning Verification &amp; Reliability</h3>
+            <p>모델의 추론 과정이 정답·근거와 맞는지 검증하는 방법</p>
+            <a href="#p-nia" data-open="d-nia" aria-haspopup="dialog">관련: 추론형(CoT) 학습데이터 구축 <span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="card spot interest reveal">
+            <span class="i-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg>
+            </span>
+            <h3>LLM Evaluation</h3>
+            <p>LLM의 답과 추론 품질을 믿을 수 있게 측정하는 평가 체계</p>
+            <a href="#p-agent" data-open="d-agent" aria-haspopup="dialog">관련: AI 에이전트 행위 기반 평가 (ETRI) <span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="card spot interest reveal">
+            <span class="i-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/></svg>
+            </span>
+            <h3>Vision-Language-Action (VLA)</h3>
+            <p>시각·센서 정보를 이해하고 실제 환경의 행동으로 이어지는 모델</p>
+            <a href="#p-ldw" data-open="d-ldw" aria-haspopup="dialog">관련: 비전 기반 차선이탈 경고 <span aria-hidden="true">↗</span></a>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <section id="education" class="section" aria-labelledby="education-title">
-      <h2 id="education-title">학력</h2>
-      <ul class="timeline">
-        <li class="timeline-item">
-          <p class="timeline-period">2024 – 2026</p>
-          <div class="timeline-body">
-            <h3>한국외국어대학교 독일어과</h3>
-            <p>재학 중</p>
-          </div>
-        </li>
-        <li class="timeline-item">
-          <p class="timeline-period">2015 – 2017</p>
-          <div class="timeline-body">
-            <h3>대원외국어고등학교 독일어과</h3>
-            <p>졸업</p>
-          </div>
-        </li>
-      </ul>
+    <!-- 일하는 방식 -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker">About</p>
+          <h2 id="how-title">이렇게 일합니다</h2>
+          <p class="sec-desc">AI는 에어컨처럼 원리를 몰라도 삶 속에서 자연스럽게 작동해야 한다고 생각합니다. 현장의 사람을 만나 기술로 문제를 푸는 과정에서 세 가지를 가장 중요하게 여깁니다.</p>
+        </header>
+        <ol class="how-grid">
+          <li class="card spot reveal">
+            <span class="how-num">01</span>
+            <h3>커뮤니케이션</h3>
+            <p>현장의 사람을 만나 목적을 이해하고, 필요한 데이터를 구체적으로 요청합니다. 고고에프앤디와는 매주 회의로 분석 결과를 공유하며 방향을 맞췄습니다.</p>
+          </li>
+          <li class="card spot reveal">
+            <span class="how-num">02</span>
+            <h3>문제 정의</h3>
+            <p>막연한 목적을 풀 수 있는 문제로 쪼갭니다. "보험 판단 근거"를 안전·위험운전 분류로, 오르지 않는 AUROC를 label ambiguity 문제로 다시 정의했습니다.</p>
+          </li>
+          <li class="card spot reveal">
+            <span class="how-num">03</span>
+            <h3>빠른 프로토타이핑</h3>
+            <p>결과물을 빨리 만들어 보여 주고 피드백을 주고받습니다. 공개 데이터로 낙차 감지 모델을 먼저 만들어 기업 데이터에 검증한 것이 그 출발이었습니다.</p>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <section id="career" class="section" aria-labelledby="career-title">
-      <h2 id="career-title">경력</h2>
-      <ul class="timeline">
-        <li class="timeline-item">
-          <p class="timeline-period">2026.06 – 현재</p>
-          <div class="timeline-body">
-            <h3>데이터센스 · 연구원</h3>
-            <ul class="detail-list">
-              <li>독자 AI 파운데이션 모델 프로젝트 공동활용 데이터 지원사업 1차 (2026.06 – 2026.09)</li>
-            </ul>
+    <!-- 타임라인 -->
+    <section id="timeline" class="section" aria-labelledby="timeline-title">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker">Timeline</p>
+          <h2 id="timeline-title">2026년, 월별로 보기</h2>
+          <p class="sec-desc">막대를 누르면 해당 프로젝트로 이동합니다.</p>
+        </header>
+        <div class="glass gantt reveal" role="list">
+          <div class="g-scale" aria-hidden="true">
+            <span>1월</span><span>2월</span><span>3월</span><span>4월</span><span>5월</span><span>6월</span><span>7월</span><span>8월</span><span>9월</span><span>10월</span><span>11월</span>
           </div>
-        </li>
-        <li class="timeline-item">
-          <p class="timeline-period">2026.01 – 현재</p>
-          <div class="timeline-body">
-            <h3>Senscore AI Lab · 학부생 인턴</h3>
-            <p>한국외국어대학교</p>
-            <ul class="detail-list">
-              <li>고고에프앤디 데이터 분석 (IMU 센서 및 비전 인식)</li>
-              <li>국립암센터 의료 영상 비전-언어 분석 (TRUS classification)</li>
-            </ul>
+          <!-- '지금' 선과 '현재'까지 막대는 script.js가 오늘 날짜로 계산한다 -->
+          <div class="g-now" style="--m:10.1" aria-hidden="true"><span>지금</span></div>
+
+          <div class="g-row" role="listitem">
+            <p class="g-label">SenscoreAI Lab 학부생 인턴 <span class="g-when">2026.01 – 현재</span></p>
+            <a class="g-bar c-lab" href="#exp-lab" style="--s:1;--e:11" data-ongoing><span>2026.01 – 현재</span></a>
           </div>
-        </li>
-      </ul>
+          <div class="g-row" role="listitem">
+            <p class="g-label">공공서비스 AI 에이전트 위험 평가 (ETRI) <span class="g-when">2026.10 – 11</span></p>
+            <a class="g-bar c-data" href="#p-agent" style="--s:10;--e:12"><span>2026.10 – 11</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">자기설명 기반 신뢰 모델 연구 (ETRI) <span class="g-when">2026.10 – 11</span></p>
+            <a class="g-bar c-data" href="#p-xai" style="--s:10;--e:12"><span>2026.10 – 11</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">TRUS 전립선암 분류 연구 · 학회 발표 <span class="g-when">2026.03 – 05</span></p>
+            <a class="g-bar c-research" href="#p-trus" style="--s:3;--e:6"><span>2026.03 – 05</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">이륜차 안전·위험운전 판별 (산학) <span class="g-when">2026.01 – 06</span></p>
+            <a class="g-bar c-industry" href="#p-riding" style="--s:1;--e:7"><span>2026.01 – 06</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">비전 기반 차선이탈 경고 (산학) <span class="g-when">2026.01 – 06</span></p>
+            <a class="g-bar c-industry" href="#p-ldw" style="--s:1;--e:7"><span>2026.01 – 06</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">AI-native 웹 서비스 명세 (palcar) <span class="g-when">2026.02 – 03</span></p>
+            <a class="g-bar c-dev" href="#p-palcar" style="--s:2;--e:4"><span>2026.02 – 03</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">베어링 잔여수명 예측 챌린지 <span class="g-when">2026.05 – 07</span></p>
+            <a class="g-bar c-research" href="#p-bearing" style="--s:5;--e:8"><span>2026.05 – 07</span></a>
+          </div>
+          <div class="g-row" role="listitem">
+            <p class="g-label">추론형 학습데이터 구축 (데이터센스) <span class="g-when">2026.06 – 09</span></p>
+            <a class="g-bar c-data" href="#p-nia" style="--s:6;--e:10"><span>2026.06 – 09</span></a>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="activities" class="section" aria-labelledby="activities-title">
-      <h2 id="activities-title">대외활동</h2>
-      <ul class="timeline">
-        <li class="timeline-item">
-          <p class="timeline-period">2026.05.08</p>
-          <div class="timeline-body">
-            <h3>대한의용생체공학회 2026 춘계학술대회 포스터 발표</h3>
-            <p class="paper-title"><i>Patient-Level Mean Aggregation Improves Prostate Cancer Detection in TRUS Images Under Limited Data</i></p>
+    <!-- 프로젝트 -->
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker">Projects</p>
+          <h2 id="projects-title">무엇을, 언제, 어떻게 했는지</h2>
+          <p class="sec-desc">카드를 누르면 목적·역할·결과와 이미지·영상을 자세히 볼 수 있습니다.</p>
+        </header>
+
+        <div class="tabs reveal" role="group" aria-label="프로젝트 분류">
+          <span class="tab-indicator" aria-hidden="true"></span>
+          <button type="button" class="tab is-active" data-filter="all" aria-pressed="true">전체</button>
+          <button type="button" class="tab" data-filter="research" aria-pressed="false">연구</button>
+          <button type="button" class="tab" data-filter="industry" aria-pressed="false">산학·사업</button>
+          <button type="button" class="tab" data-filter="dev" aria-pressed="false">서비스·개발</button>
+        </div>
+
+        <div class="bento">
+          <article id="p-agent" class="pcard spot span-2 reveal" data-cat="industry research">
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-progress" data-start="2026-10-01" data-end="2026-11-30">진행 중</span><span class="when">2026.10 – 2026.11</span><span class="org">ETRI 과제 · 데이터센스</span></div>
+              <h3>공공서비스 AI 에이전트 행위 기반 위험 유형 분석 및 평가기준 도출</h3>
+              <p>AI 에이전트가 공공서비스를 안내·신청하는 과정의 행위를 위험유형별로 판정하는 평가방법을 설계했습니다. 제안서 작성과 발표에 참여했고, 목업 환경과 채점기를 직접 만들고 그 성능을 검증했습니다.</p>
+              <ul class="chips"><li>Agent Safety</li><li>LLM Evaluation</li><li>채점기</li><li>목업 환경</li></ul>
+              <button class="more" type="button" data-open="d-agent">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-xai" class="pcard spot span-2 reveal" data-cat="industry research">
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-progress" data-start="2026-10-01" data-end="2026-11-30">진행 중</span><span class="when">2026.10 – 2026.11</span><span class="org">ETRI 과제 · 이용자연구 부문 책임</span></div>
+              <h3>자기설명 기반 신뢰 가능한 모델 접근 방법 사전연구 및 사례 적용</h3>
+              <p>방법론·모델평가·이용자연구 세 부문으로 수행하는 과제에서 이용자연구 부문 책임을 맡아, 이용자 실험의 참여자 모집과 조건 배정, 실험 자료 관리를 담당합니다.</p>
+              <ul class="chips"><li>Self-Explanation</li><li>Trust</li><li>User Study</li></ul>
+              <button class="more" type="button" data-open="d-xai">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-trus" class="pcard spot span-2 reveal" data-cat="research">
+            <div class="pcard-media"><img src="assets/trus-auroc.png" alt="백본별 프레임 단위와 환자 단위 집계의 AUROC 비교 막대그래프" width="1600" height="667" loading="lazy"></div>
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-done">완료 · 학회 발표</span><span class="when">2026.03 – 2026.05</span></div>
+              <h3>소규모 TRUS 영상에서 전립선암 검출 성능 향상</h3>
+              <p>환자 단위 평균 집계(mean aggregation)로 6개 백본×전처리 조합 모두에서 AUROC를 높였습니다. 최고 0.740.</p>
+              <ul class="chips"><li>Medical Imaging</li><li>Label Ambiguity</li><li>MIL</li><li>제1저자</li></ul>
+              <button class="more" type="button" data-open="d-trus">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-riding" class="pcard spot span-2 reveal" data-cat="industry research">
+            <div class="pcard-media"><img src="assets/riding-risk-demo-poster.jpg" alt="가속도·자이로·GPS 속도 시계열과 위험 확률을 보여 주는 이륜차 위험운전 판별 대시보드 화면" width="1280" height="712" loading="lazy"></div>
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-done">완료 · 기술 검증</span><span class="when">2026.01 – 2026.06</span><span class="org">전반 참여</span></div>
+              <h3>이륜차 안전·위험운전 판별</h3>
+              <p>고고에프앤디 산학협력. 9축 IMU 데이터로 위험운전을 가르기 위해 주행 실험을 직접 설계해 레이블 데이터를 만들고, 정상/위험 분류 ROC AUC 0.9 이상을 확인했습니다.</p>
+              <ul class="chips"><li>IMU</li><li>주행 실험 설계</li><li>산학협력</li></ul>
+              <button class="more" type="button" data-open="d-riding">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-ldw" class="pcard spot span-2 reveal" data-cat="industry research">
+            <div class="pcard-media"><img src="assets/ldw-demo-poster.jpg" alt="이륜차 주행 영상에서 차선을 검출하고 BEV 변환 결과를 함께 보여 주는 차선이탈 경고 데모 화면" width="1184" height="774" loading="lazy"></div>
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-done">완료 · 기술 검증</span><span class="when">2026.01 – 2026.06</span><span class="org">알고리즘 설계</span></div>
+              <h3>비전 기반 차선이탈 경고(LDW)</h3>
+              <p>고고에프앤디 산학협력. 카메라 영상만으로 차선을 검출하고 BEV 좌표에서 차로 중심 대비 offset으로 이탈을 판단하는 로직을 직접 설계했습니다.</p>
+              <ul class="chips"><li>UFLDv2</li><li>BEV</li><li>OpenLKA</li></ul>
+              <button class="more" type="button" data-open="d-ldw">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-nia" class="pcard spot reveal" data-cat="industry">
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-done" data-start="2026-06-01" data-end="2026-09-30">완료</span><span class="when">2026.06 – 2026.09</span></div>
+              <h3>28종 자격증 기반 추론형(CoT) 학습데이터 구축</h3>
+              <p>데이터센스 연구원. 텍스트 정제, LaTeX 변환, reasoning_trace 작성과 정합성 검증.</p>
+              <ul class="chips"><li>CoT</li><li>Data QA</li><li>NIA</li></ul>
+              <button class="more" type="button" data-open="d-nia">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-bearing" class="pcard spot reveal" data-cat="research">
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-award">전체 9위</span><span class="when">2026.05 – 2026.07</span></div>
+              <h3>베어링 잔여수명(RUL) 예측 챌린지</h3>
+              <p>변화율 기반 동역학 피처와 Causal TCN, 베어링별 동적 보정 정책.</p>
+              <ul class="chips"><li>Time-series</li><li>TCN</li><li>LOBO</li></ul>
+              <button class="more" type="button" data-open="d-bearing">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article id="p-palcar" class="pcard spot span-full reveal" data-cat="dev">
+            <div class="pcard-body">
+              <div class="pmeta"><span class="tag t-done">참여 완료</span><span class="when">2026.02 – 2026.03</span></div>
+              <h3>AI-native 웹 서비스 기능명세·투두리스트 설계</h3>
+              <p>코딩 에이전트가 읽고 바로 구현할 수 있는 형태로 요구사항을 정리했습니다.</p>
+              <ul class="chips"><li>Spec</li><li>AI Agent</li><li>Figma</li></ul>
+              <button class="more" type="button" data-open="d-palcar">자세히 보기 <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 경력·학력 -->
+    <section id="experience" class="section" aria-labelledby="experience-title">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker">Experience &amp; Education</p>
+          <h2 id="experience-title">경력 · 학력</h2>
+        </header>
+        <div class="xp-grid">
+          <div class="reveal">
+            <h3 class="col-title">경력</h3>
+            <ol class="vline">
+              <li id="exp-datasense">
+                <p class="v-when">2026.06 – 현재</p>
+                <h4>데이터센스 · 연구원</h4>
+                <ul>
+                  <li>ETRI 공공서비스 AI 에이전트 행위 기반 위험 평가: 평가 설계, 목업 환경·채점기 구현 (2026.10 – 2026.11)</li>
+                  <li>ETRI 자기설명 기반 신뢰 가능한 모델 연구: 이용자연구 부문 책임 (2026.10 – 2026.11)</li>
+                  <li>독자 AI 파운데이션 모델 프로젝트 공동활용 데이터 지원사업 1차 (2026.06 – 2026.09)</li>
+                  <li>28종 자격증 기반 추론형 학습데이터 구축: 데이터 정제, CoT 추론 구조화, 정합성 검증</li>
+                </ul>
+              </li>
+              <li id="exp-lab">
+                <p class="v-when">2026.01 – 현재</p>
+                <h4>SenscoreAI Lab · 학부생 인턴</h4>
+                <p class="v-sub">한국외국어대학교 Social Science &amp; AI융합학부</p>
+                <ul>
+                  <li>고고에프앤디 산학협력: 이륜차 IMU 센서 및 비전 기반 분석</li>
+                  <li>TRUS 전립선암 초음파 영상 분류 연구</li>
+                </ul>
+              </li>
+            </ol>
           </div>
-        </li>
-      </ul>
+          <div class="reveal">
+            <h3 class="col-title">학력</h3>
+            <ol class="vline">
+              <li>
+                <p class="v-when">2024 – 2026</p>
+                <h4>한국외국어대학교 독일어과</h4>
+                <p class="v-sub">재학 중</p>
+              </li>
+              <li>
+                <p class="v-when">2015 – 2017</p>
+                <h4>대원외국어고등학교 독일어과</h4>
+                <p class="v-sub">졸업</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 발표·수상 -->
+    <section id="awards" class="section" aria-labelledby="awards-title">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker">Presentations &amp; Awards</p>
+          <h2 id="awards-title">발표 · 수상</h2>
+        </header>
+        <ul class="award-grid">
+          <li id="aw-kosombe" class="card spot award reveal">
+            <p class="aw-when">2026.05.08</p>
+            <p class="aw-type">학회 포스터 발표 · 제1저자</p>
+            <h3>대한의용생체공학회 2026 춘계학술대회</h3>
+            <p class="aw-desc"><i>Patient-Level Mean Aggregation Improves Prostate Cancer Detection in TRUS Images Under Limited Data</i></p>
+          </li>
+          <li class="card spot award reveal">
+            <p class="aw-when">2026</p>
+            <p class="aw-type">데이터 챌린지 · 전체 9위</p>
+            <h3>2026 KSPHM-KIMM Machine Data Challenge</h3>
+            <p class="aw-desc">베어링 잔여수명 예측, Team pairing.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 블로그 미리보기 -->
+    <section id="blog-teaser" class="section" aria-labelledby="blog-teaser-title">
+      <div class="wrap">
+        <header class="sec-head sec-head-row reveal">
+          <div>
+            <p class="kicker">Blog</p>
+            <h2 id="blog-teaser-title">AI 소식과 연구일지</h2>
+            <p class="sec-desc">연구하며 남긴 기록과 관심 있게 본 AI 소식을 블로그에 모으고 있습니다.</p>
+          </div>
+          <a class="btn btn-glass" href="blog/index.html">블로그 보기 <span aria-hidden="true">→</span></a>
+        </header>
+        <ol class="teaser-grid" id="blog-teaser-list"></ol>
+      </div>
+    </section>
+
+    <!-- 링크 -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="wrap">
+        <div class="cta reveal">
+          <p class="kicker">Contact</p>
+          <h2 id="contact-title">함께 연구할 분을 기다립니다</h2>
+          <p class="cta-purpose">본 페이지는 연구를 함께할 분들과 채용 담당자분들께 제 연구를 소개하는 페이지입니다.<br>연락은 메일로 부탁드립니다.</p>
+          <a class="cta-mail" href="mailto:202401578@hufs.ac.kr">
+            <span class="cta-mail-label">Contact</span>
+            <span class="cta-mail-addr">202401578@hufs.ac.kr</span>
+            <span aria-hidden="true">→</span>
+          </a>
+          <div class="cta-links">
+            <a class="btn btn-glass" href="https://github.com/202401578-coder" target="_blank" rel="noopener">GitHub <span class="sr-only">(새 창)</span></a>
+            <a class="btn btn-glass" href="https://github.com/202401578-coder/202401578-coder.github.io" target="_blank" rel="noopener">이 홈페이지 저장소 <span class="sr-only">(새 창)</span></a>
+            <a class="btn btn-glass" href="blog/index.html">블로그</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="site-footer container">
-    <p>나의 학습과 프로젝트를 기록합니다.</p>
-    <a href="https://github.com/202401578-coder">내 GitHub</a>
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 이원경 · 나의 연구와 프로젝트를 기록합니다.</p>
+      <a href="#top">맨 위로 <span aria-hidden="true">↑</span></a>
+    </div>
   </footer>
+
+  <!-- ============ 프로젝트 상세 모달 ============ -->
+  <dialog id="d-agent" class="modal" aria-labelledby="d-agent-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-progress" data-start="2026-10-01" data-end="2026-11-30">진행 중</span><span class="when">2026.10 – 2026.11</span><span class="org">ETRI 과제 · 데이터센스</span></div>
+      <h3 id="d-agent-title">공공서비스 AI 에이전트 행위 기반 위험 유형 분석 및 평가기준 도출 및 사례 적용</h3>
+      <p class="goal"><b>목적</b> 공공서비스를 탐색·안내·신청하는 AI 에이전트의 안전성을 최종 답변만이 아니라, 에이전트가 실제로 판단·시도·수행한 행위 과정 전체로 평가하는 방법을 만드는 것.</p>
+      <h4>제가 한 일</h4>
+      <ul class="ticks">
+        <li><b>제안서 작성과 발표</b>: 과제 제안서 작성에 참여하고 제안 발표를 했습니다.</li>
+        <li><b>평가 설계</b>: 최종 답변이 아니라 에이전트가 실제로 한 행위의 흐름을 근거로 위험을 판정하는 구조를 설계했습니다.</li>
+        <li><b>목업 환경</b>: 합성 이용자 시나리오와 모의 공공서비스(조회·정보 입력·모의 제출·상태 확인·오류 주입)를 만들어, 에이전트의 대화와 도구 호출을 기록할 수 있게 했습니다.</li>
+        <li><b>채점기 구현</b>: 규칙으로 확정할 수 있는 항목은 자동 판정하고, 맥락 해석이 필요한 항목은 평가자 판단으로 넘기며, 증거가 부족하면 통과가 아닌 판정 불가(UNASSESSABLE)로 남기는 채점기를 만들었습니다.</li>
+        <li><b>채점기 검증</b>: 합성 평가자료와 전문가 검수를 통해 채점기의 판정 성능을 평가했습니다.</li>
+      </ul>
+      <p class="foot">2026.10 – 2026.11 진행 중인 과제입니다. 구체적인 작업 결과물은 과제 완료 후 보안사항을 준수하는 범위에서 업로드할 예정입니다.</p>
+    </div>
+  </dialog>
+
+  <dialog id="d-xai" class="modal" aria-labelledby="d-xai-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-progress" data-start="2026-10-01" data-end="2026-11-30">진행 중</span><span class="when">2026.10 – 2026.11</span><span class="org">ETRI 과제 · 데이터센스</span></div>
+      <h3 id="d-xai-title">자기설명 기반 신뢰 가능한 모델 접근 방법에 대한 사전연구 및 사례 적용</h3>
+      <p class="goal"><b>목적</b> 언어모델이 스스로 내놓는 설명(자기설명)을 바탕으로 신뢰할 수 있는 모델에 접근하는 방법을 사전 연구하고, 사례에 적용해 보는 것.</p>
+      <h4>수행 체계와 제 역할</h4>
+      <ul class="ticks">
+        <li>연구책임자 아래 <b>방법론 · 모델평가 · 이용자연구</b> 세 부문으로 수행합니다.</li>
+        <li>저는 <b>이용자연구 부문 책임</b>(연구원)을 맡았습니다.</li>
+        <li>담당 업무: 이용자 실험의 참여자 모집, 실험 조건 배정, 실험 자료 관리</li>
+      </ul>
+      <p class="foot">2026.10 – 2026.11 진행 중인 과제입니다. 구체적인 작업 결과물은 과제 완료 후 보안사항을 준수하는 범위에서 업로드할 예정입니다.</p>
+    </div>
+  </dialog>
+
+  <dialog id="d-trus" class="modal" aria-labelledby="d-trus-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-done">완료 · 학회 발표</span><span class="when">2026.03 – 2026.05</span><span class="org">SenscoreAI Lab · 제1저자</span></div>
+      <h3 id="d-trus-title">소규모 TRUS 영상에서 전립선암 검출 성능 향상: 환자 단위 평균 집계</h3>
+      <p class="goal"><b>목적</b> 환자 304명, 11,056프레임, 양성:음성 약 1:3.6인 소규모·불균형 경직장 초음파(TRUS) 데이터에서 암/비암 이진 분류 성능을 높이는 것.</p>
+      <ul class="kpis">
+        <li><strong>0.740</strong><span>최고 AUROC (EfficientNetV2-S · ROI)</span></li>
+        <li><strong>+0.075</strong><span>프레임 단위 대비 최대 향상</span></li>
+        <li><strong>6 / 6</strong><span>백본×전처리 조합 모두 향상</span></li>
+      </ul>
+      <h4>제가 한 일</h4>
+      <ul class="ticks">
+        <li>레이블은 환자 단위인데 암 환자 영상에도 병변이 없는 프레임이 섞여 있다는 점을 찾아 <b>label ambiguity</b>를 핵심 문제로 정의</li>
+        <li>ResNet18 · EfficientNetV2-S · SwinV2-Tiny × 원본/부채꼴 ROI 전처리, 환자 단위 stratified 5-fold로 실험 설계</li>
+        <li>프레임 단위 기준선과 max·mean 집계, attention MIL을 비교. MIL이 효과가 없던 원인(양성 bag 부족으로 attention이 균일분포로 수렴)을 분석</li>
+        <li>추가 학습 없이 추론 단계에서 적용하는 <b>mean aggregation</b>이 모든 조합에서 AUROC를 높임을 확인 (Δ+0.018 ~ +0.075)</li>
+      </ul>
+      <div class="m-media">
+        <figure>
+          <img src="assets/trus-label-ambiguity.jpg" width="1400" height="907" loading="lazy"
+               alt="프레임 단위 TRUS 분류의 레이블 모호성 도식. 암 환자의 프레임 중 일부만 암을 포함하지만 모든 프레임에 암 레이블이 붙어, 올바른 비암 예측이 오답으로 처리되는 문제를 설명한다.">
+          <figcaption>문제 정의: 환자 단위 레이블이 프레임에 그대로 붙으며 생기는 label ambiguity</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/trus-auroc.png" width="1600" height="667" loading="lazy"
+               alt="백본과 전처리 조합 여섯 가지에서 프레임 단위, 환자 max 집계, 환자 mean 집계의 AUROC를 비교한 막대그래프. EfficientNetV2-S 전처리 조합의 mean 집계가 0.740으로 가장 높다.">
+          <figcaption>5-fold 교차검증 AUROC 비교 (포스터 수록 그림)</figcaption>
+        </figure>
+      </div>
+      <p class="foot">발표: 대한의용생체공학회 2026 춘계학술대회 포스터 (2026.05.08) · 공저: 홍승혁 교수</p>
+    </div>
+  </dialog>
+
+  <dialog id="d-riding" class="modal" aria-labelledby="d-riding-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-done">완료 · 기술 검증</span><span class="when">2026.01 – 2026.06</span><span class="org">SenscoreAI Lab × 고고에프앤디 · 전반 참여</span></div>
+      <h3 id="d-riding-title">이륜차 안전·위험운전 판별</h3>
+      <p class="goal"><b>목적</b> 이륜차 운전자에게는 마땅한 위험도 평가 체계가 없습니다. 보험료 산정의 근거가 될 수 있도록 센서 데이터로 안전운전과 위험운전을 가르는 것.</p>
+      <h4>제가 한 일</h4>
+      <ul class="ticks">
+        <li>"보험 판단 근거"라는 목표를 <b>안전운전과 위험운전을 가르는 문제</b>로 구체화하고 매주 기업과 결과를 공유</li>
+        <li>사륜차 기준을 적용하면 급진로변경 등이 과대 예측됨을 확인. 공개 데이터로 낙차 감지 모델을 만들어 자체 9축 IMU 데이터에 검증</li>
+        <li>위험운전 레이블이 있는 공개 데이터가 없어 <b>직접 주행 실험</b>을 제안하고 장소 섭외, 실험 테이블 설계, 10개 케이스 실험으로 레이블 데이터 구축</li>
+        <li>정상/위험 주행 분류에서 ROC AUC 0.9 이상으로 데이터 유효성 확인</li>
+      </ul>
+      <div class="m-media">
+        <figure class="full">
+          <video controls muted playsinline loop preload="none" poster="assets/riding-risk-demo-poster.jpg" aria-describedby="v1-desc">
+            <source src="assets/riding-risk-demo.mp4" type="video/mp4">
+            영상을 재생할 수 없는 브라우저입니다. <a href="assets/riding-risk-demo.mp4">영상 파일 열기</a>
+          </video>
+          <figcaption id="v1-desc">위험운전 판별 데모 일부(소리 없음, 5초): 가속도·자이로·GPS 속도 시계열과 모델이 예측한 위험 확률</figcaption>
+        </figure>
+      </div>
+      <p class="foot">R&amp;D 제안서 작성까지 참여했습니다. 기업 데이터와 코드는 공개하지 않습니다.</p>
+    </div>
+  </dialog>
+
+  <dialog id="d-ldw" class="modal" aria-labelledby="d-ldw-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-done">완료 · 기술 검증</span><span class="when">2026.01 – 2026.06</span><span class="org">SenscoreAI Lab × 고고에프앤디 · 알고리즘 설계</span></div>
+      <h3 id="d-ldw-title">비전 기반 차선이탈 경고(LDW)</h3>
+      <p class="goal"><b>목적</b> 별도 센서 없이 카메라 영상만으로 이륜차의 차선이탈을 판단해, 위험운전 평가에 쓸 수 있는 근거를 하나 더 만드는 것.</p>
+      <h4>제가 한 일</h4>
+      <ul class="ticks">
+        <li>주행 영상과 CAN 신호가 함께 있는 OpenLKA로 실제 차량의 차선이탈 판단 근거를 분석</li>
+        <li>UFLDv2로 차선을 검출하고, 카메라 높이·기울기를 추정해 BEV(위에서 본 좌표)로 변환</li>
+        <li>좌·우 차선까지의 거리와 차로 중심 대비 offset, 횡방향 속도로 이탈을 판단하는 <b>비전 전용 offset 기반 LDW</b> 구현</li>
+        <li>BEV 시각화와 실제 주행 영상을 나란히 비교하며 검증</li>
+      </ul>
+      <div class="m-media">
+        <figure class="full">
+          <video controls muted playsinline loop preload="none" poster="assets/ldw-demo-poster.jpg" aria-describedby="v2-desc">
+            <source src="assets/ldw-demo.mp4" type="video/mp4">
+            영상을 재생할 수 없는 브라우저입니다. <a href="assets/ldw-demo.mp4">영상 파일 열기</a>
+          </video>
+          <figcaption id="v2-desc">LDW 데모 일부(소리 없음, 5초): 원본 영상, 검출한 차선, BEV 변환 결과. 판단 지표 수치는 가렸습니다.</figcaption>
+        </figure>
+        <figure class="full">
+          <img src="assets/ldw-lane-mask.jpg" width="1578" height="330" loading="lazy"
+               alt="고속도로 주행 영상 한 프레임, 그 위에 차선 검출 마스크를 초록색으로 덧씌운 화면, 검출된 차선 점만 남긴 화면을 나란히 놓은 비교 이미지.">
+          <figcaption>차선 검출 마스크 확인 과정 (원본 · 마스크 오버레이 · 검출 결과)</figcaption>
+        </figure>
+      </div>
+      <p class="foot">기업 데이터와 코드는 공개하지 않습니다.</p>
+    </div>
+  </dialog>
+
+  <dialog id="d-nia" class="modal" aria-labelledby="d-nia-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-done" data-start="2026-06-01" data-end="2026-09-30">완료</span><span class="when">2026.06 – 2026.09</span><span class="org">데이터센스 연구원 · NIA 발주</span></div>
+      <h3 id="d-nia-title">28종 자격증 기반 추론형(CoT) 학습데이터 구축</h3>
+      <p class="goal"><b>목적</b> 독자 AI 파운데이션 모델 프로젝트의 공동 활용 데이터로, 자격증 시험 문항에 단계별 추론 과정을 붙여 AI 모델의 추론 성능을 높이는 학습데이터를 만드는 것.</p>
+      <div class="m-cols">
+        <div>
+          <h4>제가 한 일</h4>
+          <ul class="ticks">
+            <li>자격증 시험 원천데이터의 텍스트 정제와 수식·숫자의 <b>LaTeX 변환</b></li>
+            <li>CoT 기반 추론 데이터 구조화와 단계별 추론과정(<code>reasoning_trace</code>) 작성</li>
+            <li>문항·정답·해설·추론과정 사이의 <b>정합성 검증</b></li>
+          </ul>
+        </div>
+        <div>
+          <h4>데이터 구조 (필드 예시)</h4>
+          <pre class="code" aria-label="가공 데이터 필드 구조 예시"><code>{
+  "item_id": "…",
+  "certificate": "전기기사",
+  "question_type": "객관식",
+  "question": "… \( LaTeX \) …",
+  "options": { "1": "…", "2": "…" },
+  "answer": "…",
+  "explanation": "…",
+  "reasoning_trace": [ "1단계 …", "2단계 …" ]
+}</code></pre>
+        </div>
+      </div>
+      <p class="foot">근거: 데이터센스 발급 참여확인서(2026.09.15). 개인정보가 포함되어 원본은 게시하지 않습니다.</p>
+    </div>
+  </dialog>
+
+  <dialog id="d-bearing" class="modal" aria-labelledby="d-bearing-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-award">완료 · 전체 9위</span><span class="when">2026.05 – 2026.07</span><span class="org">KSPHM-KIMM Machine Data Challenge · Team pairing</span></div>
+      <h3 id="d-bearing-title">베어링 잔여수명(RUL) 예측: 동역학 피처 기반 동적 하이브리드 방법</h3>
+      <p class="goal"><b>목적</b> 25.6 kHz 진동 신호 50회 측정 구간만으로 Test 베어링 6개의 잔여수명을 예측하는 것. Train 베어링은 4개뿐이고, Test 구간이 수명의 어느 위치인지 알려지지 않았습니다.</p>
+      <h4>접근 방법</h4>
+      <ol class="steps">
+        <li><b>문제 재정의</b> 모델 성능보다 평가 환경에 맞는 예측 구조가 중요하다고 보고, Test 구간의 수명 위치 추정을 선행 문제로 정의</li>
+        <li><b>검증 설계</b> Train을 길이 50의 sliding window로 재구성하고 베어링 단위 Leave-One-Bearing-Out 4-fold로 검증</li>
+        <li><b>피처</b> 개체차에 흔들리는 절대 진동 대신 변화율 기반 동역학 피처(초기 대비 비율·열화 속도·누적 손상)를 설계하고 상호정보량으로 65개 선정</li>
+        <li><b>모델</b> Causal TCN 4-block, 과대예측을 더 벌하는 평가식에 맞춘 비대칭 MSE, 5-seed 앙상블</li>
+        <li><b>동적 보정</b> 수명 위치 유사도·진행 속도·신뢰도·위험 신호로 베어링마다 보정 방향과 강도를 다르게 적용하는 3분기 정책. Test별 수동 조정 없이 Train LOBO로 선택</li>
+      </ol>
+    </div>
+  </dialog>
+
+  <dialog id="d-palcar" class="modal" aria-labelledby="d-palcar-title">
+    <div class="modal-inner">
+      <button class="modal-close" type="button" aria-label="닫기">✕</button>
+      <div class="pmeta"><span class="tag t-done">참여 완료</span><span class="when">2026.02 – 2026.03</span><span class="org">palcar · 2인 공동 작성</span></div>
+      <h3 id="d-palcar-title">AI-native 웹 서비스 개발을 위한 기능명세서·투두리스트 설계</h3>
+      <p class="goal"><b>목적</b> 코딩 에이전트가 읽고 바로 구현할 수 있는 형태로 요구사항을 정리해, AI 에이전트 중심(AI-native)으로 웹 서비스를 만드는 과정에 참여하는 것.</p>
+      <ul class="ticks">
+        <li>판매자·딜러·어드민 세 역할별로 화면 기능을 나누고 기능마다 <b>기능코드, 우선순위(P0~), 선행조건, 상태, 버전</b>을 부여</li>
+        <li>각 기능을 Figma 프레임과 연결해 에이전트가 화면과 명세를 함께 참조하도록 구성</li>
+        <li>기능명세서를 구현 순서가 드러나는 투두리스트로 바꿔 작업 단위를 정리</li>
+      </ul>
+      <p class="foot">비공개 저장소의 프로젝트라 코드와 명세 원문은 게시하지 않습니다.</p>
+    </div>
+  </dialog>
 </body>
 </html>

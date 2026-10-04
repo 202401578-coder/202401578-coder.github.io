@@ -1,0 +1,54 @@
+# Google Docs에 쓴 연구일지·AI 소식을 블로그 글(data/posts.js)로 정리해 올린다.
+# 문서 주소는 저장소 Settings → Secrets and variables → Actions의 BLOG_DOC_URL에만 둔다.
+name: Blog sync
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # 6시간마다 (UTC)
+  workflow_dispatch: # Actions 탭에서 직접 실행
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: blog-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 문서에서 글 만들기
+        env:
+          BLOG_DOC_URL: ${{ secrets.BLOG_DOC_URL }}
+        run: node scripts/build-blog.mjs
+
+      - name: 바뀐 글이 있으면 커밋
+        id: commit
+        run: |
+          # 글 데이터와 본문 그림(assets/blog/, 새로 받은 파일 포함)을 함께 본다
+          if [ -z "$(git status --porcelain -- data/posts.js assets/blog)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "바뀐 글이 없습니다."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A -- data/posts.js assets/blog
+            git commit -m "블로그 글 자동 동기화"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Actions가 올린 커밋은 Pages 빌드를 자동으로 시작하지 않을 수 있어 직접 요청한다
+      - name: Pages 다시 빌드
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages 빌드 요청 실패(다음 푸시 때 반영됩니다)"
