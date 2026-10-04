@@ -12,7 +12,7 @@
   --border-strong: rgba(255, 255, 255, .16);
   --text: #eef1f7;
   --muted: #929cb0;
-  --faint: #5d6679;
+  --faint: #7a8496; /* 배경 대비 4.5:1 이상 */
   --a1: #8b7bff;
   --a2: #38d0f5;
   --a3: #ff7ab8;
@@ -42,7 +42,7 @@
     --bg: #f5f6fb; --bg-2: #eceef6;
     --surface: rgba(255, 255, 255, .7); --surface-strong: #ffffff;
     --border: rgba(15, 20, 40, .08); --border-strong: rgba(15, 20, 40, .16);
-    --text: #0d1222; --muted: #566077; --faint: #8a93a6;
+    --text: #0d1222; --muted: #566077; --faint: #667085;
     --a1: #5a48f0; --a2: #0a9fc4; --a3: #e0407f;
     --on-accent: #ffffff; --focus: #e07b00;
     --modal-bg: #ffffff; --code-bg: #0f1424;
@@ -55,7 +55,7 @@
   --bg: #f5f6fb; --bg-2: #eceef6;
   --surface: rgba(255, 255, 255, .7); --surface-strong: #ffffff;
   --border: rgba(15, 20, 40, .08); --border-strong: rgba(15, 20, 40, .16);
-  --text: #0d1222; --muted: #566077; --faint: #8a93a6;
+  --text: #0d1222; --muted: #566077; --faint: #667085;
   --a1: #5a48f0; --a2: #0a9fc4; --a3: #e0407f;
   --on-accent: #ffffff; --focus: #e07b00;
   --modal-bg: #ffffff; --code-bg: #0f1424;
@@ -242,6 +242,7 @@ code { font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; fon
 
 .hero-lead { max-width: 620px; color: var(--muted); font-size: 17.5px; }
 .hero-lead strong { color: var(--text); }
+.hero-purpose { margin-top: 14px; padding-left: 12px; border-left: 2px solid var(--a2); color: var(--text); font-size: 15.5px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .hero-note { margin-top: 22px; color: var(--faint); font-size: 14px; }
 
@@ -563,7 +564,7 @@ code { font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; fon
 
   .gantt { --lw: 0px; --pad: 14px; }
   .g-scale, .g-row { grid-template-columns: repeat(11, minmax(0, 1fr)); }
-  .g-scale { font-size: 9px; letter-spacing: -0.04em; }
+  .g-scale { font-size: 10.5px; letter-spacing: -0.05em; }
   .g-scale span:first-child { grid-column: 1; }
   .g-row { row-gap: 6px; }
   .g-label { grid-column: 1 / -1; grid-row: 1; padding-right: 0; font-size: 14px; }
